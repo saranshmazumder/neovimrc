@@ -1,2 +1,0 @@
->[[!info]] 
-> Neo Vim Config 

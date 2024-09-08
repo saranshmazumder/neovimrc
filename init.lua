@@ -348,9 +348,10 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        pyright = { filetypes = { 'python' } },
+        pyright = { filetypes = { 'python' }, on_attach = on_attach },
         ruff_lsp = { filetypes = { 'python' }, on_attach = on_attach },
-        rust_analyzer = { filetypes = { 'rust' } },
+        rust_analyzer = { filetypes = { 'rust' }, on_attach = on_attach },
+        tsserver = { filetypes = { 'typescript', 'javascript', 'javascriptreact', 'javascript.jsx' }, on_attach = on_attach },
 
         lua_ls = {
           filetypes = { 'lua' },
@@ -368,6 +369,10 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua',
+        'html',
+        'eslint',
+        'cssls',
+        'tsserver',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -571,7 +576,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'javascript', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -613,6 +618,7 @@ require('lazy').setup({
   require 'kickstart.plugins.lualine',
   require 'kickstart.plugins.none-ls',
   require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.vim-be-good',
   --[[   require 'kickstart.plugins.lint', ]]
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
